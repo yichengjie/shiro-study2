@@ -13,3 +13,7 @@ mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
     cache-enabled: false
+    
+spring:
+  thymeleaf:
+    cache: false #开发过程中建议关闭cache

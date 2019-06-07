@@ -16,11 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class LoginController {
 	//退出的时候是get请求，主要是用于退出
-/*	@GetMapping("/login")
-	public String login() {
-		return "login.html" ;
-	}*/
-	
 	//@RequestParam("userName")
 	@RequestMapping("/login")
 	public String login(HttpServletRequest request, Map<String, String> map) {
@@ -53,7 +48,7 @@ public class LoginController {
 	 //登出
     @GetMapping("/index")
     public String index(){
-        return "index.html";
+        return "index";
     }
 	
 	 //登出
