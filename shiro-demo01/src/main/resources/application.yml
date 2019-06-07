@@ -7,8 +7,7 @@ jdbc:
   
 mybatis-plus: 
   type-aliases-package: com.yicj.study.shiro.entity
-  #mapper-locations: classpath*:com/yicj/study/shiro/xml/**Mapper.xml
-  mapper-locations: classpath*:/mapper/**Mapper.xml
+  mapper-locations: classpath*:com/yicj/study/shiro/xml/**Mapper.xml
   global-config:
     db-config:
       table-underline: true #驼峰下划线转换
