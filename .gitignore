@@ -3,3 +3,4 @@
 .settings/
 target/
 velocity.log
+bin/
