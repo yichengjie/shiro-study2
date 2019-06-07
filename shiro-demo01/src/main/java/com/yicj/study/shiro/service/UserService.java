@@ -12,5 +12,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-06-07
  */
 public interface UserService extends IService<User> {
-
+	public User findRolesAndPermissionsByUserName(String name) ;
+	public User findUserByName(String name) ;
 }

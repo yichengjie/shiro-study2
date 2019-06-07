@@ -21,4 +21,11 @@ public class SimpleMapperTest {
     	List<User> users = userService.list() ;
     	users.forEach(System.out::println);
     }
+    
+    @Test
+    public void testFindByNameWithRolesAndPermissions() {
+    	String name = "test" ;
+    	User user = userService.findRolesAndPermissionsByUserName(name);
+    	System.out.println(user);
+    }
 }
