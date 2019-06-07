@@ -1,5 +1,6 @@
 package com.yicj.study.shiro.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,7 +15,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-public class LoginController {
+public class HomeController {
+	//首页
+    @GetMapping({"","index"})
+    public String index(){
+        return "index";
+    }
+    
+    //无权访问页面
+    @GetMapping("/403")
+    public String error(){
+        return "403.html";
+    }
+    
+	/**
+     * 未登录，shiro应重定向到登录界面，此处返回未登录状态信息由前端控制跳转页面
+     * @return
+     */
+    @RequestMapping(value = "/unauth")
+    @ResponseBody
+    public Object unauth() {
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("code", "1000000");
+        map.put("msg", "未登录");
+        return map;
+    }
+    
+    
 	//退出的时候是get请求，主要是用于退出
 	//@RequestParam("userName")
 	@RequestMapping("/login")
@@ -45,23 +72,6 @@ public class LoginController {
 	    return "/login";
 	}
 	
-	 //登出
-    @GetMapping("/index")
-    public String index(){
-        return "index";
-    }
-	
-	 //登出
-    @GetMapping("/logout")
-    public String logout(){
-        return "logout";
-    }
-    //错误页面展示
-    @GetMapping("/error")
-    public String error(){
-        return "error.html";
-    }
-    
     //注解的使用
     @RequiresRoles("admin")
     @RequiresPermissions("create")
@@ -70,5 +80,4 @@ public class LoginController {
     public String create(){
         return "Create success!";
     }
-	
 }
