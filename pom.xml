@@ -8,5 +8,6 @@
   
   <modules>
   	<module>shiro-demo01</module>
+	<module>spring-boot-shiro</module>
   </modules>
 </project>
