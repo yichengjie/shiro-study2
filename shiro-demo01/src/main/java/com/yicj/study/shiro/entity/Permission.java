@@ -12,16 +12,16 @@ import java.io.Serializable;
  * @author yicj
  * @since 2019-06-07
  */
-public class User implements Serializable {
+public class Permission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String name;
+    private String permission;
 
-    private String password;
+    private Integer roleId;
 
 
     public Integer getId() {
@@ -32,28 +32,28 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getPermission() {
+        return permission;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPermission(String permission) {
+        this.permission = permission;
     }
 
-    public String getPassword() {
-        return password;
+    public Integer getRoleId() {
+        return roleId;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setRoleId(Integer roleId) {
+        this.roleId = roleId;
     }
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Permission{" +
         "id=" + id +
-        ", name=" + name +
-        ", password=" + password +
+        ", permission=" + permission +
+        ", roleId=" + roleId +
         "}";
     }
 }

@@ -45,14 +45,14 @@ public class MyBatisCodeGen {
        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
        dsc.setUsername("root");
        dsc.setPassword("root");
-       dsc.setUrl("jdbc:mysql://localhost:3306/test?useSSL=false&serverTimezone=GMT%2B8");
+       dsc.setUrl("jdbc:mysql://localhost:3306/shiro?useSSL=false&serverTimezone=GMT%2B8");
        mpg.setDataSource(dsc);
 
        // 策略配置
        StrategyConfig strategy = new StrategyConfig();
       // strategy.setTablePrefix(new String[] { "sys_" });// 此处可以修改为您的表前缀
        strategy.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-       strategy.setInclude(new String[] { "user" }); // 需要生成的表
+       strategy.setInclude(new String[] {"user","role","permission"}); // 需要生成的表
 
        strategy.setSuperServiceClass(null);
        strategy.setSuperServiceImplClass(null);
