@@ -51,7 +51,6 @@ httpUtil.dealAjaxRequest4JSObj = function(serverURL,jsObjData){//异步操作
 		   defer.reject(err) ;
 	   },
 	   success:function (result) {
-		   Common.closeLoad(index) ;
 		   defer.resolve(result);
 	   }
 	};

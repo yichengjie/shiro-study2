@@ -22,5 +22,11 @@ CREATE TABLE IF NOT EXISTS permission(
 
 insert into user(name,password) values('test','123456') ;
 insert into role(role_name,user_id) values('admin',1) ;
-insert into permission(permission,role_id) values('create',1) ;
-insert into permission(permission,role_id) values('update',1) ;
+insert into permission(permission,role_id) values('user:create',1) ;
+insert into permission(permission,role_id) values('user:update',1) ;
+
+insert into user(name,password) values('yicj','123456') ;
+insert into role(role_name,user_id) values('admin',2) ;
+insert into permission(permission,role_id) values('user:view',2) ;
+
+
