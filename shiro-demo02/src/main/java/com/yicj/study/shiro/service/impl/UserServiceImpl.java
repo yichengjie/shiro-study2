@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author yicj
@@ -24,41 +24,59 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-	
+
 	@Autowired
-	private RoleService roleService ;
+	private RoleService roleService;
 	@Autowired
 	private PermissionService permissionService;
-	
+
 	// 查询用户通过用户名
 	@Override
-	public User findRolesAndPermissionsByUserName(String name) {
-		//1.根绝用户名查询用户
-		QueryWrapper <User> userWrapper = Wrappers.query() ;
-		userWrapper.eq("name", name) ;
+	public User findRolesAndPermissionsByUserName(String username) {
+		// 1.根绝用户名查询用户
+		QueryWrapper<User> userWrapper = Wrappers.query();
+		userWrapper.eq("name", username);
 		User user = getOne(userWrapper);
-		//2.查询用户关联的角色
+		this.fillRoleAndPermissionByUser(user);
+		return user;
+	}
+
+	//填充角色和权限
+	private void fillRoleAndPermissionByUser(User user) {
+		// 2.查询用户关联的角色
 		Integer userid = user.getId();
-		QueryWrapper <Role> roleWrapper = Wrappers.query() ;
-		roleWrapper.eq("user_id", userid) ;
+		QueryWrapper<Role> roleWrapper = Wrappers.query();
+		roleWrapper.eq("user_id", userid);
 		List<Role> roles = roleService.list(roleWrapper);
 		user.setRoles(roles);
-		//3.查询角色关联的全部权限
-		roles.forEach(role->{
+		// 3.查询角色关联的全部权限
+		roles.forEach(role -> {
 			Integer id = role.getId();
-			QueryWrapper <Permission> permissionWrapper = Wrappers.query() ;
-			permissionWrapper.eq("role_id",id) ;
+			QueryWrapper<Permission> permissionWrapper = Wrappers.query();
+			permissionWrapper.eq("role_id", id);
 			List<Permission> list = permissionService.list(permissionWrapper);
 			role.setPermissions(list);
 		});
+	}
+
+	@Override
+	public User findUserByName(String username) {
+		QueryWrapper<User> userWrapper = Wrappers.query();
+		userWrapper.eq("name", username);
+		User user = getOne(userWrapper);
 		return user;
 	}
 
 	@Override
-	public User findUserByName(String name) {
-		QueryWrapper <User> userWrapper = Wrappers.query() ;
-		userWrapper.eq("name", name) ;
+	public User findRolesAndPermissionsByUserNameAndPassword(
+			String username,String password) {
+		// 1.根绝用户名查询用户
+		QueryWrapper<User> userWrapper = Wrappers.query();
+		userWrapper.eq("name", username);
+		//这里可以对密码加密等
+		userWrapper.eq("password", password) ;
 		User user = getOne(userWrapper);
+		this.fillRoleAndPermissionByUser(user);
 		return user;
 	}
 }

@@ -31,11 +31,9 @@ public class MyShiroRealm extends AuthorizingRealm{
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(
     		PrincipalCollection principalCollection) {
-    	logger.info("---------------------------->【shiro】授权认证：");
+    	logger.info("-------------->【shiro】授权认证：");
         //获取登录用户名
-        String name= (String) principalCollection.getPrimaryPrincipal();
-        //查询用户名称
-        User user = userService.findRolesAndPermissionsByUserName(name);
+        User user= (User) principalCollection.getPrimaryPrincipal();
         //添加角色和权限
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         for (Role role:user.getRoles()) {
@@ -53,24 +51,22 @@ public class MyShiroRealm extends AuthorizingRealm{
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) 
     		throws AuthenticationException {
-    	logger.info("---------------------------->【shiro】登陆验证:");
-    	//加这一步的目的是在Post请求的时候会先进认证，然后在到请求
-        /*if (token.getPrincipal() == null) {
-            return null;
-        }*/
+    	logger.info("-------------->【shiro】登陆验证:");
         //获取用户信息
-        String name = token.getPrincipal().toString();
-        User user = userService.findUserByName(name) ;
+        String username = token.getPrincipal().toString();
+        String password = new String((char[])token.getCredentials()); //[C@b99a89
+        System.out.println("--------------> password : " + password);
+        User user = userService.findRolesAndPermissionsByUserNameAndPassword(
+        		username, password) ;
         if (user == null) {
             //用户不存在就抛出异常
-            throw new UnknownAccountException("账号不存在!") ;
+            throw new UnknownAccountException("用户名或密码错误!") ;
         } 
         if(user.getState() ==1) {
         	throw new LockedAccountException("账号被锁!") ;
         }
         SimpleAuthenticationInfo simpleAuthenticationInfo = 
-        		new SimpleAuthenticationInfo(name, 
-        				user.getPassword().toString(), getName());
+        	new SimpleAuthenticationInfo(user, user.getPassword(), getName());
         return simpleAuthenticationInfo;
     }
 }

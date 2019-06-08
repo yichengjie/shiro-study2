@@ -5,10 +5,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
-import org.apache.shiro.subject.Subject;
 /**
  * <p>
  * 前端控制器
@@ -20,8 +18,8 @@ import org.apache.shiro.subject.Subject;
 @RestController
 @RequestMapping("/apis/user")
 public class UserController {
-	// 注解的使用
-	@RequiresRoles("admin")
+	// 注解的使用注意如果添加两个注解则realm中的授权将会调用两次
+	//@RequiresRoles("admin")
 	@RequiresPermissions("user:create")
 	@GetMapping("/create")
 	public Map<String, Object> create() {
@@ -35,7 +33,7 @@ public class UserController {
 	}
 
 	// 注解的使用
-	@RequiresRoles("admin")
+	//@RequiresRoles("admin")
 	@RequiresPermissions("user:view")
 	@GetMapping("/view")
 	public Map<String, Object>  view() {
