@@ -9,7 +9,6 @@ $(function(){
             console.info(resp) ;
             var str = JSON.stringify(resp) ;
             alert(str) ;
-
         }) ;
     }) ;
 
