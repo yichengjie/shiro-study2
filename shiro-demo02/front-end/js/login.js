@@ -12,7 +12,9 @@ $(function(){
         var serverUrl = "/apis/ajaxLogin" ;
         var ajaxing = httpUtil.dealAjaxRequest4JSObj(serverUrl,formData) ;
         $.when(ajaxing).done(function(resp){
-            console.info(resp)
+            console.info(resp) ;
+            var str = JSON.stringify(resp) ;
+            alert(str) ;
         }) ;
     }) ;
 }) ;
