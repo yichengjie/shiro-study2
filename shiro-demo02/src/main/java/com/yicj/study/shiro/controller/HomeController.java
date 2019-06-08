@@ -53,6 +53,9 @@ public class HomeController {
 		try {
 			subject.login(token);
 			//登录成功以后，向前台发送一个token，shiro根绝这个判断登录使用
+			//D00668789F4033FE75E81631B805846C
+			//token会写入浏览器的sessionId中
+			//写到浏览器后:JSESSIONID=D00668789F4033FE75E81631B805846C
 			jsonObject.put("token", subject.getSession().getId());
 			jsonObject.put("msg", "登录成功");
 		} catch (IncorrectCredentialsException e) {
