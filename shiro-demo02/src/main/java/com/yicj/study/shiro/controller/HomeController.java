@@ -26,7 +26,9 @@ import com.yicj.study.shiro.vo.UserInfoVo;
 @RequestMapping("/apis/")
 public class HomeController {
 	private Logger logger = LoggerFactory.getLogger(HomeController.class) ;
+	
 	// 未登录，shiro应重定向到登录界面，此处返回未登录状态信息由前端控制跳转页面
+	//未登录时，请求后台资源后，会走到这里
 	@GetMapping(value = "/unauth")
 	public Map<String, Object> unauth() {
 		Map<String, Object> map = new HashMap<String, Object>();
@@ -35,7 +37,7 @@ public class HomeController {
 		return map;
 	}
 
-	// 无权访问页面
+	//当访问了无权限访问的资源时
 	@GetMapping("/403")
 	public Map<String, Object> noauth() {
 		Map<String, Object> map = new HashMap<String, Object>();

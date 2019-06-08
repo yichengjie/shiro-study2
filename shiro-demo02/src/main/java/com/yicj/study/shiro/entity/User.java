@@ -23,6 +23,7 @@ public class User implements Serializable {
     private Integer id;
     private String name;
     private String password;
+    private Integer state ;//等于状态，0:正常，1:被锁
     @TableField(exist = false)
     private List<Role> roles;
 }
