@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-//@ControllerAdvice(basePackages ="com.yicj.study.shiro.controller")
+@ControllerAdvice(basePackages ="com.yicj.study.shiro.controller")
 public class MyExceptionHandler {
 	
-	//@ResponseBody
-    //@ExceptionHandler(value = Exception.class)
+	@ResponseBody
+    @ExceptionHandler(value = Exception.class)
 	public Map<String,Object> exceptionHandler(Exception ex) {
 		Map<String, Object> retObj = new HashMap<String, Object>();
 		if(ex instanceof UnknownAccountException) {
