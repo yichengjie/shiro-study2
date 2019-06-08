@@ -7,8 +7,6 @@ import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.LockedAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.authz.annotation.RequiresPermissions;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
@@ -51,9 +48,11 @@ public class HomeController {
 		JSONObject jsonObject = new JSONObject();
 		Subject subject = SecurityUtils.getSubject();
 		logger.info("ajaxLogin: " +userInfo);
-		UsernamePasswordToken token = new UsernamePasswordToken(userInfo.getUsername(), userInfo.getPassword());
+		UsernamePasswordToken token = new UsernamePasswordToken(
+				userInfo.getUsername(), userInfo.getPassword());
 		try {
 			subject.login(token);
+			//登录成功以后，向前台发送一个token，shiro根绝这个判断登录使用
 			jsonObject.put("token", subject.getSession().getId());
 			jsonObject.put("msg", "登录成功");
 		} catch (IncorrectCredentialsException e) {
