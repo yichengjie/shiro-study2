@@ -43,7 +43,6 @@ public class ShiroConfiguration {
         //登录
         map.put("/apis/ajaxLogin", "anon");
         map.put("/apis/login", "anon");
-        map.put("/apis/403", "anon");
         //对所有用户认证
         map.put("/**","authc");
         //如果不配置会自动跳转到login.jsp页面，在没有登录时访问需要权限资源自动跳转的
