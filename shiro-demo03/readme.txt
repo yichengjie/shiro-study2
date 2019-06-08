@@ -1,1 +1,1 @@
-在shiro-demo02的基础上改的前后端分离项目
+在shiro-demo02的基础上进一步完善，支持分布式后台，session共享
