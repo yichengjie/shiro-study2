@@ -2,6 +2,8 @@ package com.yicj.study.shiro.config;
 
 import java.util.Properties;
 import javax.sql.DataSource;
+
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +16,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
  * 2）创建SqlSessionFactory
  */
 @Configuration //该注解类似于spring配置文件
+@MapperScan("com.yicj.study.shiro.mapper")
 public class MyBatisConfig {
 	
 	@Value("${jdbc.driverClassName}")

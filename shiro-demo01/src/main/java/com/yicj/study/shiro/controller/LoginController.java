@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class LoginController {
-	//退出的时候是get请求，主要是用于退出
-	//@RequestParam("userName")
-	@RequestMapping("/login")
+	//情况1:未登录时，由ShiroConfiguration中配置的setLoginUrl跳转过来
+	//情况2:登录失败时由shiro自动跳转到setLoginUrl指定的跳转过来
+	@GetMapping("/login")
 	public String login(HttpServletRequest request, Map<String, String> map) {
-		System.out.println("HomeController.login()");
+		System.out.println("-------> HomeController.login()");
 	    // 登录失败从request中获取shiro处理的异常信息。
 	    // shiroLoginFailure:就是shiro异常类的全类名.
 	    String exception = (String) request.getAttribute("shiroLoginFailure");
@@ -51,20 +51,23 @@ public class LoginController {
         return "index";
     }
 	
-	 //登出
-    @GetMapping("/logout")
-    public String logout(){
-        return "logout";
-    }
+	
     //错误页面展示
     @GetMapping("/error")
     public String error(){
-        return "error.html";
+        return "error";
     }
+    
+    //错误页面展示
+    @GetMapping("/403")
+    public String noauth(){
+        return "403";
+    }
+    
     
     //注解的使用
     @RequiresRoles("admin")
-    @RequiresPermissions("create")
+    @RequiresPermissions("user:create")
     @RequestMapping(value = "/create")
     @ResponseBody
     public String create(){

@@ -43,6 +43,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 	//填充角色和权限
 	private void fillRoleAndPermissionByUser(User user) {
+		if(user == null) {
+			return ;
+		}
 		// 2.查询用户关联的角色
 		Integer userid = user.getId();
 		QueryWrapper<Role> roleWrapper = Wrappers.query();

@@ -43,23 +43,20 @@ public class ShiroConfiguration {
         //登录
         map.put("/apis/ajaxLogin", "anon");
         map.put("/apis/login", "anon");
+        map.put("/apis/403", "anon");
         //对所有用户认证
         map.put("/**","authc");
         //如果不配置会自动跳转到login.jsp页面，在没有登录时访问需要权限资源自动跳转的
-        shiroFilterFactoryBean.setLoginUrl("/apis/unauth");
-        //前端控制跳转，后台注释掉
+        shiroFilterFactoryBean.setLoginUrl("/apis/unlogin");
+        //前端控制跳转的话就不需要
         //shiroFilterFactoryBean.setSuccessUrl("/index");
-        //错误页面，认证不通过跳转
-        shiroFilterFactoryBean.setUnauthorizedUrl("/apis/403");
+        //springboot集成项目中，这里设置了也不生效，只会在后台打印异常，可以直接全局异常拦截，然后处理
+        //shiroFilterFactoryBean.setUnauthorizedUrl("/apis/403");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(map);
         return shiroFilterFactoryBean;
     }
 
-    /**
-     * 开启aop注解支持
-     * @param securityManager
-     * @return
-     */
+    //开启aop注解支持 
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
         AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
@@ -67,27 +64,18 @@ public class ShiroConfiguration {
         return authorizationAttributeSourceAdvisor;
     }
     
-    /**
-     * Shiro生命周期处理器
-     * @return
-     */
+    //Shiro生命周期处理器
     @Bean
     public LifecycleBeanPostProcessor lifecycleBeanPostProcessor(){
         return new LifecycleBeanPostProcessor();
     }
     
-    /**
-     *  开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
-     * 配置以下两个bean(DefaultAdvisorAutoProxyCreator和AuthorizationAttributeSourceAdvisor)即可实现此功能
-     * @return
-     */
+   // 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
+   // 配置以下两个bean(DefaultAdvisorAutoProxyCreator和AuthorizationAttributeSourceAdvisor)即可实现此功能
     @Bean
     public DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator(){
         DefaultAdvisorAutoProxyCreator advisorAutoProxyCreator = new DefaultAdvisorAutoProxyCreator();
         advisorAutoProxyCreator.setProxyTargetClass(true);
         return advisorAutoProxyCreator;
     }
-    
-  
-
 }

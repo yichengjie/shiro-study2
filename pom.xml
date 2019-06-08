@@ -5,11 +5,9 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   
-  
   <modules>
+  	<module>hello-world</module>
   	<module>shiro-demo01</module>
 	<module>shiro-demo02</module>
-	<module>spring-boot-shiro</module>
-	<module>hello-world</module>
   </modules>
 </project>
