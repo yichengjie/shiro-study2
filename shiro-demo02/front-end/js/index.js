@@ -8,6 +8,9 @@ $(function(){
         var ajaxing = httpUtil.dealAjaxRequestWithoutParam(serverUrl) ;
         $.when(ajaxing).done(function(resp){
             console.info(resp) ;
+            var str = JSON.stringify(resp) ;
+            alert(str) ;
+
         }) ;
     }) ;
 
@@ -17,6 +20,8 @@ $(function(){
         var ajaxing = httpUtil.dealAjaxRequestWithoutParam(serverUrl) ;
         $.when(ajaxing).done(function(resp){
             console.info(resp) ;
+            var str = JSON.stringify(resp) ;
+            alert(str) ;
         }) ;
     }) ;
 }) ;
