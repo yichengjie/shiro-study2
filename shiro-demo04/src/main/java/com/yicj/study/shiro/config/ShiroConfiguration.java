@@ -2,10 +2,8 @@ package com.yicj.study.shiro.config;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import org.apache.shiro.mgt.SecurityManager;
 import org.apache.shiro.session.mgt.SessionManager;
-import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
@@ -24,16 +22,10 @@ import com.yicj.study.shiro.shiro.MyShiroRealm;
 @Configuration
 public class ShiroConfiguration {
 	private Logger logger = LoggerFactory.getLogger(ShiroConfiguration.class) ;
-	
 	@Value("${shiro.host}")
 	private String host;
 	@Value("${shiro.timeout}")
 	private int timeout;
-	
-	@Value("${jdbc.driverClassName}")
-	private String driverClassName ;
-	@Value("${jdbc.url}")
-	private String url  ;
 
 	// Filter工厂，设置对应的过滤条件和跳转条件
 	@Bean
@@ -77,7 +69,7 @@ public class ShiroConfiguration {
 		securityManager.setCacheManager(cacheManager());
 		return securityManager;
 	}
-
+	
 	// 自定义sessionManager
 	@Bean
 	public SessionManager sessionManager() {
@@ -88,11 +80,8 @@ public class ShiroConfiguration {
 
 	// 配置shiro redisManager
 	// 使用的是shiro-redis开源插件
+	//@Bean
 	public RedisManager redisManager() {
-		logger.debug("==============================");
-		logger.debug("=========> host : " + url);
-		logger.debug("=========> url : " + url);
-		logger.debug("==============================");
 		RedisManager redisManager = new RedisManager();
 		redisManager.setHost(host);
 		redisManager.setTimeout(timeout);
@@ -125,11 +114,11 @@ public class ShiroConfiguration {
 		return authorizationAttributeSourceAdvisor;
 	}
 
-	// Shiro生命周期处理器
-	@Bean
+	// Shiro生命周期处理器,这个千万不要加，如果加后通过${key}获取不到值,暂时不知道为啥
+	/*@Bean
 	public LifecycleBeanPostProcessor lifecycleBeanPostProcessor() {
 		return new LifecycleBeanPostProcessor();
-	}
+	}*/
 
 	// 开启Shiro的注解(如@RequiresRoles,@RequiresPermissions),需借助SpringAOP扫描使用Shiro注解的类,并在必要时进行安全逻辑验证
 	// 配置以下两个bean(DefaultAdvisorAutoProxyCreator和AuthorizationAttributeSourceAdvisor)即可实现此功能
