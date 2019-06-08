@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.session.mgt.SessionManager;
 import org.apache.shiro.spring.LifecycleBeanPostProcessor;
 import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
@@ -12,7 +13,8 @@ import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreato
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.yicj.study.shiro.realm.MyShiroRealm;
+import com.yicj.study.shiro.shiro.MySessionManager;
+import com.yicj.study.shiro.shiro.MyShiroRealm;
 
 @Configuration
 public class ShiroConfiguration {
@@ -29,7 +31,16 @@ public class ShiroConfiguration {
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
         securityManager.setRealm(myShiroRealm());
+        // 自定义session管理 使用redis
+        securityManager.setSessionManager(sessionManager());
         return securityManager;
+    }
+    
+    //自定义sessionManager
+    @Bean
+    public SessionManager sessionManager() {
+        MySessionManager mySessionManager = new MySessionManager();
+        return mySessionManager;
     }
 
     //Filter工厂，设置对应的过滤条件和跳转条件

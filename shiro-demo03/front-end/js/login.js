@@ -12,8 +12,13 @@ $(function(){
         var ajaxing = httpUtil.dealAjaxRequest4JSObj(serverUrl,formData) ;
         $.when(ajaxing).done(function(resp){
             console.info(resp) ;
-            var str = JSON.stringify(resp) ;
-            alert(str) ;
+            if(resp.code == 200){
+                var token = resp.token ;
+                Common.saveToken(token) ;
+                window.location = '/index.html' ;
+            }else{
+                alert(resp.msg)
+            }
         }) ;
     }) ;
 }) ;

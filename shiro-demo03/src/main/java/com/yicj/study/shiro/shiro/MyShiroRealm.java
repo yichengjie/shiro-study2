@@ -1,4 +1,4 @@
-package com.yicj.study.shiro.realm;
+package com.yicj.study.shiro.shiro;
 
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
