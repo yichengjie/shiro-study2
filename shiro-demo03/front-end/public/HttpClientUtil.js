@@ -1,5 +1,12 @@
 var httpUtil = {};
-
+httpUtil.fillHeader = function(option){
+	var token = Common.getToken() ;
+	var headers = {
+		headers:{"X-ACCESS-TOKEN":token}
+	} ;
+	$.extend(option,headers) ;
+	console.info('ajax option: ', option)
+}
 
 httpUtil.dealAjaxRequestWithoutParam = function(serverURL){//异步操作
 	 var defer = $.Deferred();
@@ -15,6 +22,8 @@ httpUtil.dealAjaxRequestWithoutParam = function(serverURL){//异步操作
 		   defer.resolve(result);
 	   }
 	 };
+	 //向header中填充token信息
+	 httpUtil.fillHeader(option) ;
 	 $.ajax(option); //发送ajax请
 	 return defer.promise();
 }
@@ -34,6 +43,8 @@ httpUtil.dealAjaxRequest4SimpleParam = function(serverURL,simpleJsonData){//异�
 		   defer.resolve(result);
 	   }
 	 };
+	 //向header中填充token信息
+	 httpUtil.fillHeader(option) ;
 	 $.ajax(option); //发送ajax请
 	 return defer.promise() ;
 }
@@ -54,6 +65,8 @@ httpUtil.dealAjaxRequest4JSObj = function(serverURL,jsObjData){//异步操作
 		   defer.resolve(result);
 	   }
 	};
+	//向header中填充token信息
+	httpUtil.fillHeader(option) ;
 	$.ajax(option); //发送ajax请
 	return defer.promise() ;
 }
@@ -73,6 +86,8 @@ httpUtil.dealSYNCHAjaxRequestWithoutParam = function(serverURL){//同步操作�
 		   defer.resolve(result);
 	   }
 	 };
+	 //向header中填充token信息
+	 httpUtil.fillHeader(option) ;
 	 $.ajax(option); //发送ajax请
 	 return defer.promise();
 }
@@ -93,6 +108,8 @@ httpUtil.dealSYNCHAjaxRequest4SimpleParam = function(serverURL,simpleJsonData){/
 		   defer.resolve(result);
 	   }
     };
+	//向header中填充token信息
+	httpUtil.fillHeader(option) ;
     $.ajax(option); //发送ajax请
     return defer.promise() ;
 }
@@ -114,6 +131,8 @@ httpUtil.dealSYNCHAjaxRequest4JSObj = function(serverURL,jsObjData){//同步操�
 		   defer.resolve(result);
 	   }
 	};
+	//向header中填充token信息
+	httpUtil.fillHeader(option) ;
 	$.ajax(option); //发送ajax请
 	return defer.promise() ;
 }

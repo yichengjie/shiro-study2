@@ -4,6 +4,8 @@
 $(function(){
     $("#user_view_btn").click(function(){
         var serverUrl = "/apis/user/view" ;
+        var token = Common.getToken() ;
+
         var ajaxing = httpUtil.dealAjaxRequestWithoutParam(serverUrl) ;
         $.when(ajaxing).done(function(resp){
             console.info(resp) ;
@@ -11,7 +13,6 @@ $(function(){
             alert(str) ;
         }) ;
     }) ;
-
     $("#user_create_btn").click(function(){
         var serverUrl = "/apis/user/create" ;
         var ajaxing = httpUtil.dealAjaxRequestWithoutParam(serverUrl) ;

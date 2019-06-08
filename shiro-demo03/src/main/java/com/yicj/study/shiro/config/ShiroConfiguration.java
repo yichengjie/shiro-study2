@@ -12,6 +12,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.DependsOn;
 
 import com.yicj.study.shiro.shiro.MySessionManager;
 import com.yicj.study.shiro.shiro.MyShiroRealm;
@@ -21,16 +22,17 @@ public class ShiroConfiguration {
 
     //将自己的验证方式加入容器
     @Bean
-    public MyShiroRealm myShiroRealm() {
+    public MyShiroRealm shiroRealm() {
         MyShiroRealm myShiroRealm = new MyShiroRealm();
         return myShiroRealm;
     }
 
     //权限管理，配置主要是Realm的管理认证
     @Bean
+    @DependsOn({"shiroRealm"})
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
-        securityManager.setRealm(myShiroRealm());
+        securityManager.setRealm(shiroRealm());
         // 自定义session管理 使用redis
         securityManager.setSessionManager(sessionManager());
         return securityManager;
