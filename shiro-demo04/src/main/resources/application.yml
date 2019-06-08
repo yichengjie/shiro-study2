@@ -16,4 +16,8 @@ mybatis-plus:
     
 spring:
   thymeleaf:
-    cache: false #开发过程中建议关闭cache
+    cache: false #开发过程中建议关闭cache   
+shiro: 
+  host: 127.0.0.1:6379
+  timeout: 3000 
+      

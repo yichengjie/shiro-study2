@@ -18,7 +18,7 @@ import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
 @Configuration //该注解类似于spring配置文件
 @MapperScan("com.yicj.study.shiro.mapper")
 public class MyBatisConfig {
-	
+	//private Logger logger = LoggerFactory.getLogger(MyBatisConfig.class) ;
 	@Value("${jdbc.driverClassName}")
 	private String driverClassName ;
 	//
