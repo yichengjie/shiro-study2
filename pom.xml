@@ -10,5 +10,6 @@
   	<module>shiro-demo01</module>
 	<module>shiro-demo02</module>
 	<module>shiro-demo03</module>
+	<module>shiro-demo04</module>
   </modules>
 </project>
